@@ -12,10 +12,8 @@ jobs:
           node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      - uses: c-hive/gha-npm-cache@v1
+
 
       - name: Install dependencies
         run: npm run bootstrap
@@ -31,13 +29,10 @@ jobs:
           node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      - uses: c-hive/gha-npm-cache@v1
+
       
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm run bootstrap
 
       - name: trigger lint
@@ -53,13 +48,10 @@ jobs:
           node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      - uses: c-hive/gha-npm-cache@v1
+
       
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm run bootstrap
 
       - name: trigger test
@@ -75,13 +67,10 @@ jobs:
           node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      - uses: c-hive/gha-npm-cache@v1
+
       
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm run bootstrap
 
       - name: trigger test
@@ -97,13 +86,10 @@ jobs:
           node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      - uses: c-hive/gha-npm-cache@v1
+
       
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm run bootstrap
       
       - name: trigger test
@@ -120,13 +106,10 @@ jobs:
           node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      - uses: c-hive/gha-npm-cache@v1
+
       
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm run bootstrap
       
       - name: trigger test
