@@ -17,7 +17,7 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
         run: npm run bootstrap
@@ -38,7 +38,7 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('package-lock.json') }}
       
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -62,7 +62,7 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('package-lock.json') }}
       
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -86,7 +86,7 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('package-lock.json') }}
       
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -110,7 +110,7 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('package-lock.json') }}
       
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
