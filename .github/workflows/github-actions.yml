@@ -1,0 +1,108 @@
+name: api3-dao
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: circleci/node:10.22.1
+    run:
+      working-directory: ~/repo
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: action/cache@v2
+        with:
+          path: ~/.npm
+          key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: v1-npm-deps-
+      
+      - name: Install Dependencies
+      - run: sudo apt install git
+      - run: sudo apt install python
+      - run: sudo apt install make
+      - run: sudo apt install g++
+      - run: npm run bootstrap
+
+      - name: persist_to_workspace
+        uses: actions/upload-artifact@v2
+        with:
+          name: workspace
+          path: .
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    container: circleci/node:10.22.1
+    run:
+      working-directory: ~/repo
+    steps:
+      - name: attach_workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+      - name: trigger lint
+        run: npm run lint
+
+  test_dao:
+    needs: lint
+    runs-on: ubuntu-latest
+    container: circleci/node:10.22.1
+    run:
+      working-directory: ~/repo
+    steps:
+      - name: attach_workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+      - name: trigger lint
+        run: npm run test:dao
+
+  test_voting:
+    needs: lint
+    runs-on: ubuntu-latest
+    container: circleci/node:10.22.1
+    run:
+      working-directory: ~/repo
+    steps:
+      - name: attach_workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+      - name: trigger lint
+        run: npm run test:api3-voting
+
+  test_pool:
+    needs: lint
+    runs-on: ubuntu-latest
+    container: circleci/node:10.22.1
+    run:
+      working-directory: ~/repo
+    steps:
+      - name: attach_workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+      - name: trigger lint
+        run: npm run test:pool
+
+
+  coverage:
+    needs: lint
+    runs-on: ubuntu-latest
+    container: circleci/node:10.22.1
+    run:
+      working-directory: ~/repo
+    steps:
+      - name: attach_workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+      - name: trigger lint
+        run: npm run coverage:pool && npm run coverage:api3-voting
+
+
+  
+
+        
+
