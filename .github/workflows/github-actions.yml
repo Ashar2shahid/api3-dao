@@ -23,20 +23,14 @@ jobs:
       - run: apt install python -y
       - run: apt install make -y
       - run: apt install g++ -y
-      - run: apt install zip unzip -y
       - run: npm run bootstrap -y
-
-      - uses: papeloto/action-zip@v1
-        with:
-          files: .
-          recursive: false
-          dest: root.zip
+      - run: tar -cfv root.tar .
 
       - name: persist_to_workspace
         uses: actions/upload-artifact@v2
         with:
           name: workspace
-          path: ${{ github.workspace }}/root.zip
+          path: ${{ github.workspace }}/root.tar
 
   lint:
     needs: build
@@ -47,8 +41,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: workspace
-      - name: unzip files
-        run: unzip root.zip
+      - name: untar files
+        run: tar -xv root.zip
       - name: trigger lint
         run: npm run lint
 
@@ -61,8 +55,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: workspace
-      - name: unzip files
-        run: unzip root.zip
+      - name: untar files
+        run: tar -xv root.zip
       - name: trigger lint
         run: npm run test:dao
 
@@ -75,8 +69,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: workspace
-      - name: unzip files
-        run: unzip root.zip
+      - name: untar files
+        run: tar -xv root.zip
       - name: trigger lint
         run: npm run test:api3-voting
 
@@ -89,8 +83,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: workspace
-      - name: unzip files
-        run: unzip root.zip
+      - name: untar files
+        run: tar -xv root.zip
       - name: trigger lint
         run: npm run test:pool
 
@@ -104,8 +98,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: workspace
-      - name: unzip files
-        run: unzip root.zip
+      - name: untar files
+        run: tar -xv root.zip
       - name: trigger lint
         run: npm run coverage:pool && npm run coverage:api3-voting
 
