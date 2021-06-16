@@ -24,7 +24,7 @@ jobs:
       - run: apt install make -y
       - run: apt install g++ -y
       - run: npm run bootstrap -y
-      - run: tar -cfv root.tar ${{ github.workspace }}
+      - run: tar -cfv root.tar ${{ github.workspace }}/
 
       - name: persist_to_workspace
         uses: actions/upload-artifact@v2
