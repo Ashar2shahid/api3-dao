@@ -5,23 +5,25 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Cache node modules
         uses: actions/cache@v2
         with:
           path: ~/.npm
           key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
           restore-keys: v1-npm-deps-
-
-      - run: sudo chmod -R 777 $GITHUB_WORKSPACE
-      - run: sudo chown -R 3434:3434 "/github/home/.npm"
-      - run: sudo apt install git
-      - run: sudo apt install python
-      - run: sudo apt install make
-      - run: sudo apt install g++
-      - run: npm run bootstrap
+      
+      - run: apt-get update -y
+      - run: apt install git -y
+      - run: apt install python -y
+      - run: apt install make -y
+      - run: apt install g++ -y
+      - run: npm run bootstrap -y
 
       - name: persist_to_workspace
         uses: actions/upload-artifact@v2
@@ -32,7 +34,7 @@ jobs:
   lint:
     needs: build
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -44,7 +46,7 @@ jobs:
   test_dao:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -56,7 +58,7 @@ jobs:
   test_voting:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -68,7 +70,7 @@ jobs:
   test_pool:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -81,7 +83,7 @@ jobs:
   coverage:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
