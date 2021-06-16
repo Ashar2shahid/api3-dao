@@ -5,7 +5,6 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
@@ -14,98 +13,101 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: v1-npm-deps-
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
       
-      - run: apt-get update -y
-      - run: apt install git -y
-      - run: apt install python -y
-      - run: apt install make -y
-      - run: apt install g++ -y
-      - run: npm run bootstrap -y
-      - run: tar cf ../my_directory.tar.gz * .??*
+      - run: npm run bootstrap
 
-      - name: persist_to_workspace
-        uses: actions/upload-artifact@v2
-        with:
-          name: workspace
-          path: ${{ github.workspace }}/root.tar
 
   lint:
     needs: build
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
-      - name: attach_workspace
-        uses: actions/download-artifact@v2
         with:
-          name: workspace
-      - name: untar files
-        run: tar -xf root.tar
+          node-version: '14'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      
+      - run: npm run bootstrap
       - name: trigger lint
         run: npm run lint
 
   test_dao:
     needs: lint
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
-      - name: attach_workspace
-        uses: actions/download-artifact@v2
         with:
-          name: workspace
-      - name: untar files
-        run: tar -xf root.tar
-      - name: trigger lint
+          node-version: '14'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      
+      - run: npm run bootstrap
+      - name: trigger test
         run: npm run test:dao
 
   test_voting:
     needs: lint
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
-      - name: attach_workspace
-        uses: actions/download-artifact@v2
         with:
-          name: workspace
-      - name: untar files
-        run: tar -xf root.tar
-      - name: trigger lint
+          node-version: '14'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      
+      - run: npm run bootstrap
+      - name: trigger test
         run: npm run test:api3-voting
 
   test_pool:
     needs: lint
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
-      - name: attach_workspace
-        uses: actions/download-artifact@v2
         with:
-          name: workspace
-      - name: untar files
-        run: tar -xf root.tar
-      - name: trigger lint
+          node-version: '14'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      
+      - run: npm run bootstrap
+      - name: trigger test
         run: npm run test:pool
 
 
   coverage:
     needs: lint
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
-      - name: attach_workspace
-        uses: actions/download-artifact@v2
         with:
-          name: workspace
-      - name: untar files
-        run: tar -xf root.tar
-      - name: trigger lint
+          node-version: '14'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      
+      - run: npm run bootstrap
+      - name: trigger test
         run: npm run coverage:pool && npm run coverage:api3-voting
 
 
