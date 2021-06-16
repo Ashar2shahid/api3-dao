@@ -17,7 +17,6 @@ jobs:
           key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
           restore-keys: v1-npm-deps-
       
-      - name: Install Dependencies
       - run: sudo apt install git
       - run: sudo apt install python
       - run: sudo apt install make
