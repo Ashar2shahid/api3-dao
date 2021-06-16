@@ -15,10 +15,10 @@ jobs:
           key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
           restore-keys: v1-npm-deps-
       
-      - run: sudo apt install git
-      - run: sudo apt install python
-      - run: sudo apt install make
-      - run: sudo apt install g++
+      - run: apt install git
+      - run: apt install python
+      - run: apt install make
+      - run: apt install g++
       - run: npm run bootstrap
 
       - name: persist_to_workspace
