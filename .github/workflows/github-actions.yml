@@ -1,4 +1,4 @@
-name: api3-dao
+name: api3-dao-ci
 
 on: [push]
 
@@ -6,9 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: ubuntu:20.04
-    defaults:
-      run:
-        working-directory: ~/repo
     steps:
       - uses: actions/checkout@v1
       - name: Cache node modules
@@ -34,9 +31,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     container: ubuntu:20.04
-    defaults:
-      run:
-        working-directory: ~/repo
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -48,10 +42,7 @@ jobs:
   test_dao:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
-    defaults:
-      run:
-        working-directory: ~/repo
+    container: ubuntu:20.04
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -64,9 +55,6 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     container: ubuntu:20.04
-    defaults:
-      run:
-        working-directory: ~/repo
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -79,9 +67,6 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     container: ubuntu:20.04
-    defaults:
-      run:
-        working-directory: ~/repo
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
@@ -95,9 +80,6 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     container: ubuntu:20.04
-    defaults:
-      run:
-        working-directory: ~/repo
     steps:
       - name: attach_workspace
         uses: actions/download-artifact@v2
