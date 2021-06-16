@@ -10,9 +10,7 @@ jobs:
       run:
         working-directory: ~/repo
     steps:
-      - name: Setup file system permissions
-        run: sudo chmod -R 777 $GITHUB_WORKSPACE /github /__w/_temp
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Cache node modules
         uses: actions/cache@v2
         with:
