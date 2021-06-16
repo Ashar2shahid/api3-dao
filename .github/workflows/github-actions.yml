@@ -24,7 +24,7 @@ jobs:
       - run: apt install make -y
       - run: apt install g++ -y
       - run: npm run bootstrap -y
-      - run: tar -cfv root.tar .
+      - run: tar -cfv root.tar ${{ github.workspace }}
 
       - name: persist_to_workspace
         uses: actions/upload-artifact@v2
@@ -42,7 +42,7 @@ jobs:
         with:
           name: workspace
       - name: untar files
-        run: tar -xv root.zip
+        run: tar -xv root.tar
       - name: trigger lint
         run: npm run lint
 
@@ -56,7 +56,7 @@ jobs:
         with:
           name: workspace
       - name: untar files
-        run: tar -xv root.zip
+        run: tar -xv root.tar
       - name: trigger lint
         run: npm run test:dao
 
@@ -70,7 +70,7 @@ jobs:
         with:
           name: workspace
       - name: untar files
-        run: tar -xv root.zip
+        run: tar -xv root.tar
       - name: trigger lint
         run: npm run test:api3-voting
 
@@ -84,7 +84,7 @@ jobs:
         with:
           name: workspace
       - name: untar files
-        run: tar -xv root.zip
+        run: tar -xv root.tar
       - name: trigger lint
         run: npm run test:pool
 
@@ -99,7 +99,7 @@ jobs:
         with:
           name: workspace
       - name: untar files
-        run: tar -xv root.zip
+        run: tar -xv root.tar
       - name: trigger lint
         run: npm run coverage:pool && npm run coverage:api3-voting
 
