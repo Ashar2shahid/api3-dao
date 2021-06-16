@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
-        uses: action/cache@v2
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
