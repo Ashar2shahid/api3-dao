@@ -24,7 +24,7 @@ jobs:
       - run: apt install make -y
       - run: apt install g++ -y
       - run: npm run bootstrap -y
-      - run: tar --xform s:'./':: -cf ../root.tar ./
+      - run: tar cf ../my_directory.tar.gz * .??*
 
       - name: persist_to_workspace
         uses: actions/upload-artifact@v2
