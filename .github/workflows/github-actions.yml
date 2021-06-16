@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     container: circleci/node:10.22.1
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: Cache node modules
         uses: action/cache@v2
         with:
