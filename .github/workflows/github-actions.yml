@@ -16,11 +16,11 @@ jobs:
           restore-keys: v1-npm-deps-
       
       - run: apt-get update -y
-      - run: apt install git
-      - run: apt install python
-      - run: apt install make
-      - run: apt install g++
-      - run: npm run bootstrap
+      - run: apt install git -y
+      - run: apt install python -y
+      - run: apt install make -y
+      - run: apt install g++ -y
+      - run: npm run bootstrap -y
 
       - name: persist_to_workspace
         uses: actions/upload-artifact@v2
