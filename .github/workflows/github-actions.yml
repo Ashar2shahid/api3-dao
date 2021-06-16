@@ -15,8 +15,10 @@ jobs:
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
-      
-      - run: npm run bootstrap
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
 
 
   lint:
@@ -33,7 +35,10 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
       
-      - run: npm run bootstrap
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+
       - name: trigger lint
         run: npm run lint
 
@@ -51,7 +56,10 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
       
-      - run: npm run bootstrap
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+
       - name: trigger test
         run: npm run test:dao
 
@@ -69,7 +77,10 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
       
-      - run: npm run bootstrap
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+
       - name: trigger test
         run: npm run test:api3-voting
 
@@ -87,7 +98,10 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
       
-      - run: npm run bootstrap
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+      
       - name: trigger test
         run: npm run test:pool
 
@@ -106,7 +120,10 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
       
-      - run: npm run bootstrap
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+      
       - name: trigger test
         run: npm run coverage:pool && npm run coverage:api3-voting
 
