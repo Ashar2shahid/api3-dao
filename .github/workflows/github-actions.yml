@@ -5,11 +5,13 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     defaults:
       run:
         working-directory: ~/repo
     steps:
+      - name: Setup file system permissions
+        run: sudo chmod -R 777 $GITHUB_WORKSPACE /github /__w/_temp
       - uses: actions/checkout@v1
       - name: Cache node modules
         uses: actions/cache@v2
@@ -33,7 +35,7 @@ jobs:
   lint:
     needs: build
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     defaults:
       run:
         working-directory: ~/repo
@@ -63,7 +65,7 @@ jobs:
   test_voting:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     defaults:
       run:
         working-directory: ~/repo
@@ -78,7 +80,7 @@ jobs:
   test_pool:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     defaults:
       run:
         working-directory: ~/repo
@@ -94,7 +96,7 @@ jobs:
   coverage:
     needs: lint
     runs-on: ubuntu-latest
-    container: circleci/node:10.22.1
+    container: ubuntu:20.04
     defaults:
       run:
         working-directory: ~/repo
