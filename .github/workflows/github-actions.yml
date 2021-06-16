@@ -16,6 +16,7 @@ jobs:
           restore-keys: v1-npm-deps-
 
       - run: sudo chmod -R 777 $GITHUB_WORKSPACE
+      - run: sudo chown -R /github/home/.npm
       - run: sudo apt install git
       - run: sudo apt install python
       - run: sudo apt install make
